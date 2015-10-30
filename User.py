@@ -32,5 +32,6 @@ class User:
         return User.skills
 
     # Adds new skill to end of list
+    # TODO Check for if skill is in the list
     def add_skill(self, skill):
         User.skills.append(skill)
