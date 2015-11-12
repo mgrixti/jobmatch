@@ -1,12 +1,12 @@
 __author__ = 'mgrixti'
 
-
-from sqlalchemy import Column, Integer, String, VARCHAR
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from src.DataAccess.DbConnection import DbConnection
 
 
 Base = declarative_base()
+
 
 #UserDA is a mapped class used to access the UserDA table
 class UserDA(Base):
@@ -20,11 +20,23 @@ class UserDA(Base):
     def __repr__(self):
         return "{User(first_name='%s', last_name='%s')}" % (self.first_name.decode("utf-8"), self.last_name.decode("utf-8"))
 
+    def __init__(self):
+        UserDA.db = DbConnection()
+        UserDA.session = UserDA.db.connect()
+
     def GetAll(self):
-        db = DbConnection()
-        session = db.connect()
 
         # SELECT * FROM user
-        results = session.query(UserDA)
-
+        results = UserDA.session.query(UserDA)
         return results
+
+
+    def GetByID(self, id):
+        results = UserDA.session.query(UserDA).filter(UserDA.user_id == id).one()
+        return results
+
+#userDAs = UserDA()
+#for users in userDAs.GetAll():
+ #   print(users.first_name)
+
+#print('Result',userDAs.GetByID('1'))
