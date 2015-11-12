@@ -3,7 +3,7 @@ __author__ = 'Matthew Grixti'
 from sqlalchemy import *
 from sqlalchemy.orm import *
 
-class SqlConnect():
+class DbConnection():
 
     # Establish connection to Database
     def connect(self):
@@ -12,3 +12,6 @@ class SqlConnect():
 
         Session = sessionmaker(bind=engine)
         return Session()
+
+    def close(self, engine):
+        engine.close()
