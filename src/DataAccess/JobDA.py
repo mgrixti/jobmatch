@@ -26,13 +26,13 @@ class JobDA(Base):
 
     def GetAll(self):
 
-        # SELECT * FROM user
+        # SELECT * FROM job_post
         results = JobDA.session.query(JobDA)
         return results
 
 
     def GetByID(self, id):
 
-        # SELECT * FROM user WHERE id =
+        # SELECT * FROM Job_postWHERE id =
         results = JobDA.session.query(JobDA).filter(JobDA.job_id == id).one()
         return results
