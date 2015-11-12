@@ -17,6 +17,8 @@ class JobDA(Base):
     job_title = Column(String)
     job_description = Column(String)
 
+    def __repr__(self):
+        return "{Job(job_title=='%s', job_discription='%s')}" % (self.job_title.decode("utf-8"), self.job_description.decode("utf-8"))
 
     def __init__(self):
         JobDA.db = DbConnection()
