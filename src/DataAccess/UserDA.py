@@ -1,4 +1,4 @@
-__author__ = 'mgrixti'
+__author__ = 'Matthew Grixti'
 
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
@@ -32,11 +32,7 @@ class UserDA(Base):
 
 
     def GetByID(self, id):
+
+        # SELECT * FROM user WHERE id =
         results = UserDA.session.query(UserDA).filter(UserDA.user_id == id).one()
         return results
-
-#userDAs = UserDA()
-#for users in userDAs.GetAll():
- #   print(users.first_name)
-
-#print('Result',userDAs.GetByID('1'))
