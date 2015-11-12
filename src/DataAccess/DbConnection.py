@@ -9,7 +9,6 @@ class DbConnection():
     def connect(self):
         #Create db engine. Pass in connection string.
         engine = create_engine('mysql+mysqlconnector://jobmatch:Pennyworth2@mysql.mattgrixti.com/jobmatch', echo=True)
-
         Session = sessionmaker(bind=engine)
         return Session()
 
