@@ -16,7 +16,7 @@ class User:
         User.skills = skills
 
     # Returns userID of user
-    def get_userid(self):
+    def get_userID(self):
         return User.userID
 
     # Returns first name of user
