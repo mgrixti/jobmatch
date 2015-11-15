@@ -31,7 +31,7 @@ class UserSkillDA(Base):
         results = UserSkillDA.session.query(UserSkillDA)
         return results
 
-    def GetByID(self):
+    def GetByID(self, id):
 
         results = UserSkillDA.session.query(UserSkillDA).filter(UserSkillDA.user_skill_id == id).one()
         return results
