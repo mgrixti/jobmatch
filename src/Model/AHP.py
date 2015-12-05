@@ -39,7 +39,8 @@ class AHP:
 
         return matrix
 
-
+    # Helper method for matrix generation
+    # Generates the opposite value of the weight handed in.
     def CalculateOppositeWeight(self, weight=1):
 
         # 1 divided by weight to find the opposite corresponding weight for the matrix
