@@ -2,11 +2,12 @@
 # Holds all AHP related function
 class AHP:
 
+
     numCriteria = 5
 
     # Builds matrix of weights
     # data should be in an array in order of row
-    def GenerateMatrix(self, data=[1,1,1,1,1]):
+    def GenerateMatrix(self, data=[3,0.3,9,3,3,7,3,3,3,5]):
 
         # initialize Matrix to all 1s
         matrix = [[1 for x in range(AHP.numCriteria)] for x in range(AHP.numCriteria)]
@@ -14,12 +15,20 @@ class AHP:
 
         # For each row inset/generate opposite row data
         # todo Fix x advancement
-        row = 0
 
-        for y in range(AHP.numCriteria -1):
-            x = row
-            for x in range(AHP.numCriteria -1):
+        # Nested loops enter data for top half of matrix and generates for bottom half
+        # x = original data, g = generate data
+        #   1 x x
+        #   g 1 x
+        #   g g 1
+        for y in range(AHP.numCriteria):
 
+            for x in range(y, AHP.numCriteria):
+                #
+                if x == 0:
+                    x = y
+
+                                # if x and y match they are the same criteria and have an equal weighting of 1
                 if x == y:
                     matrix[x][y] = 1
                 else:
@@ -27,7 +36,8 @@ class AHP:
                     weight = data.pop(0)
                     matrix[x][y] = weight
                     matrix[y][x] = AHP.CalculateOppositeWeight(self, weight)
-            row=+ 1
+
+        return matrix
 
 
     def CalculateOppositeWeight(self, weight=1):
