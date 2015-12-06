@@ -6,8 +6,8 @@ class AHP:
     numCriteria = 5
 
     # Builds matrix of weights
-    # data should be in an array in order of row
-    def GenerateMatrix(self, data=[3,0.3,9,3,3,7,3,3,3,5]):
+    # data should be in an array with the data in order of row
+    def generateMatrix(self, data):
 
         # initialize Matrix to all 1s
         matrix = [[1 for x in range(AHP.numCriteria)] for x in range(AHP.numCriteria)]
@@ -28,20 +28,20 @@ class AHP:
                 if x == 0:
                     x = y
 
-                                # if x and y match they are the same criteria and have an equal weighting of 1
+                # if x and y match they are the same criteria and have an equal weighting of 1
                 if x == y:
                     matrix[x][y] = 1
                 else:
                     #Pop next data off stack
                     weight = data.pop(0)
-                    matrix[x][y] = weight
-                    matrix[y][x] = AHP.CalculateOppositeWeight(self, weight)
+                    matrix[y][x] = weight
+                    matrix[x][y] = AHP.calculateOppositeWeight(self, weight)
 
         return matrix
 
     # Helper method for matrix generation
     # Generates the opposite value of the weight handed in.
-    def CalculateOppositeWeight(self, weight=1):
+    def calculateOppositeWeight(self, weight=1):
 
         # 1 divided by weight to find the opposite corresponding weight for the matrix
         oppositeWeight = 1/weight;
@@ -52,3 +52,53 @@ class AHP:
             oppositeWeight = round(oppositeWeight)
 
         return oppositeWeight
+
+    #
+    # sums the columns of the matrix
+    #
+    def sumColumns(self, matrix):
+
+        columnSums=[]
+
+        # sum the columns of the matrix
+        for x in range(AHP.numCriteria):
+            sum = 0
+
+            for y in range(AHP.numCriteria):
+                sum+= matrix[y][x]
+
+            columnSums.append(sum)
+
+        return columnSums
+
+
+    #
+    # Generates the weights of each criteria
+    #
+    def generateWeights(self, matrix):
+
+        columnSums = AHP.sumColumns
+        weights = []
+
+        # generates the weighted value of each item in the matrix
+        for y in range(AHP.numCriteria):
+            for x in range(AHP.numCriteria):
+
+                matrix[y][x] = matrix[y][x]/columnSums[x]
+
+        # generates the weights of each criteria
+        for y in range(AHP.numCriteria):
+
+            sum = 0
+
+            # adds each item in the row to sum
+            for x in range(AHP.numCriteria):
+                sum =+ matrix[y][x]
+
+            # average of weights
+            avg = sum/AHP.numCriteria
+
+            # adds avg to array of weights
+            weights.append(avg)
+
+        return weights
