@@ -7,6 +7,7 @@ class AHP:
 
     # Builds matrix of weights
     # data should be in an array with the data in order of row
+    # WORKS
     def generateMatrix(self, data):
 
         # initialize Matrix to all 1s
@@ -34,6 +35,7 @@ class AHP:
                 else:
                     #Pop next data off stack
                     weight = data.pop(0)
+                    print("Weight=", weight)
                     matrix[y][x] = weight
                     matrix[x][y] = AHP.calculateOppositeWeight(self, weight)
 
@@ -41,6 +43,7 @@ class AHP:
 
     # Helper method for matrix generation
     # Generates the opposite value of the weight handed in.
+    # WORKS
     def calculateOppositeWeight(self, weight=1):
 
         # 1 divided by weight to find the opposite corresponding weight for the matrix
@@ -55,7 +58,9 @@ class AHP:
 
     #
     # sums the columns of the matrix
-    #
+    # helper method for generateWeights()
+    # returns array in order of  columns
+    # WORKS
     def sumColumns(self, matrix):
 
         columnSums=[]
@@ -77,10 +82,10 @@ class AHP:
     #
     def generateWeights(self, matrix):
 
-        columnSums = AHP.sumColumns
+        columnSums = AHP.sumColumns(self, matrix)
         weights = []
 
-        # generates the weighted value of each item in the matrix
+        # generates the weighted value of each item in the matrix. WORKS
         for y in range(AHP.numCriteria):
             for x in range(AHP.numCriteria):
 
@@ -88,12 +93,11 @@ class AHP:
 
         # generates the weights of each criteria
         for y in range(AHP.numCriteria):
-
             sum = 0
 
             # adds each item in the row to sum
             for x in range(AHP.numCriteria):
-                sum =+ matrix[y][x]
+                sum += matrix[y][x]
 
             # average of weights
             avg = sum/AHP.numCriteria
