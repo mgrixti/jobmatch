@@ -1,6 +1,8 @@
-__author__ = 'Matthew'
+__author__ = 'Matthew Grixti'
 
 from src.Model.AbstractModel import AbstractModel
+
+
 
 class Skill(AbstractModel):
 

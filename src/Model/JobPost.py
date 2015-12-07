@@ -1,27 +1,34 @@
-__author__ = 'Matthew'
+__author__ = 'Matthew Grixti'
 
-class JobPost:
+from src.Model.AbstractModel import AbstractModel
+from src.Model.SkillCollection import SkillCollection
 
-    postID = None
+
+class JobPost(AbstractModel):
+
     title = None
     description = None
-    skills = []
+    skills = None
 
-    # Constructor
-    def __init__(self, job_id, job_title, description, skills):
-        JobPost.postID = job_id
-        JobPost.Title = job_title
-        JobPost.description = description
-        JobPost.skills = skills
 
     def get_postID(self):
-        return JobPost.postID
+        return self.id
 
     def get_title(self):
-        return JobPost.title
+        return self.title
 
     def get_description(self):
-        return JobPost.description
+        return self.description
 
-    def get_skills(self):
-        return JobPost.skills
+    def getSkills(self):
+        # if None get skills from DB
+        if self.skills == None:
+            self.skills = SkillCollection()
+            self.skills.fetchAllForUser(self.id)
+
+        return self.skills
+
+    def populateFields(self, data):
+        self.id = data.job_id
+        self.first_name = data.job_title.decode("utf-8")
+        self.last_name = data.job_description.decode("utf-8")
