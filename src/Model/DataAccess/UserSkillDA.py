@@ -2,11 +2,11 @@ __author__ = 'Matthew Grixti'
 
 from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship
 from src.DataAccess.DbConnection import DbConnection
 from src.DataAccess.UserDA import UserDA
-from src.DataAccess.SkillDA import SkillDA
 
+from src.Model.DataAccess.SkillDA import SkillDA
 
 Base = declarative_base()
 
@@ -47,4 +47,4 @@ class UserSkillDA(Base):
 #list = UserSkillDA()
 #skills = list.GetAllForUser(3)
 #for skill in skills:
- #   print(skill.user.user_id, skill.user.first_name.decode(), skill.skills.skill_name.decode())
+ #   print(skill.user.id, skill.user.first_name.decode(), skill.skills.skill_name.decode())

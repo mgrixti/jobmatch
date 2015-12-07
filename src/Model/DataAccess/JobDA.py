@@ -2,8 +2,8 @@ __author__ = 'Matthew Grixti'
 
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-from src.DataAccess.DbConnection import DbConnection
 
+from src.Model.DataAccess.DbConnection import DbConnection
 
 Base = declarative_base()
 
@@ -18,7 +18,7 @@ class JobDA(Base):
     job_description = Column(String)
 
     def __repr__(self):
-        return "{Job(job_title=='%s', job_discription='%s')}" % (self.job_title.decode("utf-8"), self.job_description.decode("utf-8"))
+        return "{Job(job_title=='%s', job_description='%s')}" % (self.job_title.decode("utf-8"), self.job_description.decode("utf-8"))
 
     def __init__(self):
         JobDA.db = DbConnection()

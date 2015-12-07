@@ -1,37 +1,39 @@
-__author__ = 'Matthew'
+__author__ = 'Matthew Grixti'
+
+from src.Model.DataAccess.UserDA import UserDA
+
 
 class User:
 
-    userID = None
+    id = None
     first_name = None
     last_name = None
     skills = []
+    topSkillRatings = []
 
-    # Constructor
-    # Assigns instant variables their user specific values
-    def __init__(self, user_id, first_name, last_name,skills):
-        User.userID = user_id
-        User.first_name = first_name
-        User.last_name = last_name
-        User.skills = skills
-
-    # Returns userID of user
-    def get_userID(self):
-        return User.userID
+    # Returns id of user
+    def get_id(self):
+        return self.id
 
     # Returns first name of user
     def get_first_name(self):
-        return User.first_name
+        return self.first_name
 
     # Returns last name of user
     def get_last_name(self):
-        return User.last_name
+        return self.last_name
 
     # Returns array of users skills
     def get_skills(self):
-        return User.skills
+        return self.skills
+
+    def populateFields(self, data):
+        self.id = data.user_id
+        self.first_name = data.first_name.decode("utf-8")
+        self.last_name = data.last_name.decode("utf-8")
 
     # Adds new skill to end of list
     # TODO Check for if skill is in the list
     def add_skill(self, skill):
         User.skills.append(skill)
+

@@ -2,8 +2,8 @@ __author__ = 'Matthew Grixti'
 
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-from src.DataAccess.DbConnection import DbConnection
 
+from src.Model.DataAccess.DbConnection import DbConnection
 
 Base = declarative_base()
 
