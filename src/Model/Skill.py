@@ -1,19 +1,20 @@
 __author__ = 'Matthew'
 
-class Skill:
+from src.Model.AbstractModel import AbstractModel
 
-    skill_id = None;
+class Skill(AbstractModel):
+
     skill_name = None
-
-    # Constructor
-    def __init__(self, skill_id, skill_name):
-        Skill.skill_id = skill_id
-        Skill.skill_name = skill_name
 
     # Returns the id of the skill.
     def get_skill_id(self):
-        return Skill.skill_id
+        return self.id
 
     # Returns the name of the skill.
     def get_skill_name(self):
-        return Skill.skill_name
+        return self.skill_name
+
+    def populateFields(self, data):
+        self.id = data.skill_id
+        self.first_name = data.first_name.decode("utf-8")
+        self.last_name = data.last_name.decode("utf-8")

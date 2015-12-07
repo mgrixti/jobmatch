@@ -1,19 +1,15 @@
 __author__ = 'Matthew Grixti'
 
-from src.Model.DataAccess.UserDA import UserDA
+from src.Model.AbstractModel import AbstractModel
+from src.Model.SkillCollection import SkillCollection
 
 
-class User:
+class User(AbstractModel):
 
-    id = None
     first_name = None
     last_name = None
-    skills = []
-    topSkillRatings = []
-
-    # Returns id of user
-    def get_id(self):
-        return self.id
+    skills = None # Lazy loaded
+    topSkillRatings = None # Lazy loaded
 
     # Returns first name of user
     def get_first_name(self):
@@ -25,6 +21,15 @@ class User:
 
     # Returns array of users skills
     def get_skills(self):
+        return self.skills
+
+    # Getter for user's skill
+    def getSkills(self):
+        # if None get skills from DB
+        if self.skills == None:
+            self.skills = SkillCollection()
+            self.skills.fetchAllForUser(self.id)
+
         return self.skills
 
     def populateFields(self, data):

@@ -1,3 +1,6 @@
+__author__ = 'Matthew Grixti'
+
+
 from src.Model.AbstractCollection import AbstractCollection
 from src.Model.DataAccess.UserDA import UserDA
 from src.Model.User import User
@@ -18,7 +21,6 @@ class UserCollection(AbstractCollection):
     def populateUsers(self, data):
 
         for row in data:
-            print(row)
             user = User()
             user.populateFields(row)
             self.addToCollection(user)

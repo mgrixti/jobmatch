@@ -1,7 +1,11 @@
 __author__ = 'Matthew Grixti'
 
+from abc import ABCMeta, abstractmethod
 
-class AbstractCollection:
+
+class AbstractCollection(object):
+    __metaclass__ = ABCMeta
+
 
     collection = []
 
