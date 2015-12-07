@@ -1,6 +1,8 @@
-from src.Model.User import User
-from src.DataAccess.UserDA import UserDA
 from src.DataAccess.UserSkillDA import UserSkillDA
+
+from src.Model.DataAccess.UserDA import UserDA
+from src.Model.User import User
+
 
 class UserController():
 

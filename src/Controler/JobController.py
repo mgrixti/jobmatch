@@ -1,6 +1,8 @@
-from src.Model.User import User
 from src.DataAccess.JobDA import JobDA
-from src.DataAccess.JobSkillDA import JobSkillDA
+
+from src.Model.DataAccess.JobSkillDA import JobSkillDA
+from src.Model.User import User
+
 
 class JobPostController():
 
