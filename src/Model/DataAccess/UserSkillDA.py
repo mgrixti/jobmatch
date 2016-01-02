@@ -5,7 +5,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from src.Model.DataAccess.DbConnection import DbConnection
 from src.Model.DataAccess.UserDA import UserDA
-
 from src.Model.DataAccess.SkillDA import SkillDA
 
 Base = declarative_base()
@@ -38,13 +37,7 @@ class UserSkillDA(Base):
 
     def GetAllForUser(self, user_id):
 
-        results = UserSkillDA.session.query(UserSkillDA).join(UserDA).join(SkillDA).\
+        results = UserSkillDA.session.query(UserSkillDA.skill_id, SkillDA.skill_name).join(SkillDA).\
                   filter(UserSkillDA.user_id == user_id).all()
 
         return results
-
-
-#list = UserSkillDA()
-#skills = list.GetAllForUser(3)
-#for skill in skills:
- #   print(skill.user.id, skill.user.first_name.decode(), skill.skills.skill_name.decode())

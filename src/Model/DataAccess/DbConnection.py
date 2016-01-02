@@ -11,6 +11,3 @@ class DbConnection():
         engine = create_engine('mysql+mysqlconnector://jobmatch:Pennyworth2@mysql.mattgrixti.com/jobmatch', echo=False)
         Session = sessionmaker(bind=engine)
         return Session()
-
-    def close(self, engine):
-        engine.close()

@@ -17,17 +17,18 @@ class UserDA(Base):
     first_name = Column(String(20))
     last_name = Column(String(20))
 
+
     def __repr__(self):
         return "{'user_id':'%s', 'first_name': '%s', 'last_name': '%s'}" % (self.user_id, self.first_name.decode("utf-8"), self.last_name.decode("utf-8"))
 
     def __init__(self):
-        UserDA.db = DbConnection()
-        UserDA.session = UserDA.db.connect()
+        self.db = DbConnection()
+        self.session = self.db.connect()
 
     def GetAll(self):
 
         # SELECT * FROM user
-        results = UserDA.session.query(UserDA)
+        results = self.session.query(UserDA)
 
         return results
 
@@ -35,7 +36,7 @@ class UserDA(Base):
     def GetByID(self, id):
 
         # SELECT * FROM user WHERE id =
-        results = UserDA.session.query(UserDA).filter(UserDA.user_id == id).one()
+        results = self.session.query(UserDA).filter(UserDA.user_id == id).one()
 
         return results
 

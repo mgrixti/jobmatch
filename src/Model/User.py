@@ -4,12 +4,13 @@ from src.Model.AbstractModel import AbstractModel
 from src.Model.SkillCollection import SkillCollection
 
 
+
 class User(AbstractModel):
 
     first_name = None
     last_name = None
-    skills = None # Lazy loaded
-    topSkillRatings = None # Lazy loaded
+    skills = None # Lazy loaded collection
+    skillRatings = None # Lazy loaded collection
 
     # Returns first name of user
     def get_first_name(self):
@@ -31,6 +32,13 @@ class User(AbstractModel):
             self.skills.fetchAllForUser(self.id)
 
         return self.skills
+
+    def getSkillRatings(self):
+        if self.skillRatings == None:
+            self.skillRatings = SkillCollection()
+            self.skillRatings.fetchAllForUser(self.id)
+
+        return self.skillRatings
 
     def populateFields(self, data):
         self.id = data.user_id

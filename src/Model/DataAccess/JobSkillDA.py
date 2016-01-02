@@ -3,8 +3,8 @@ __author__ = 'Matthew Grixti'
 from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from src.DataAccess.DbConnection import DbConnection
-from src.DataAccess.JobDA import JobDA
+from src.Model.DataAccess.DbConnection import DbConnection
+from src.Model.DataAccess.JobDA import JobDA
 
 from src.Model.DataAccess.SkillDA import SkillDA
 

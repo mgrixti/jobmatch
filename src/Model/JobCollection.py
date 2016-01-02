@@ -3,10 +3,10 @@ __author__ = 'Matthew Grixti'
 from src.Model.AbstractCollection import AbstractCollection
 from src.Model.DataAccess.JobSkillDA import JobSkillDA
 from src.Model.DataAccess.JobDA import JobDA
-from src.Model.Skill import Skill
+from src.Model.JobPost import JobPost
 
 
-class JobPostCollection(AbstractCollection):
+class JobCollection(AbstractCollection):
 
     jobDA = JobDA()
     jobSkillDA = JobSkillDA()
@@ -14,19 +14,19 @@ class JobPostCollection(AbstractCollection):
 
     def fetchAll(self):
         data = self.jobDA.GetAll()
-        self.populateSkills(data)
+        self.populateJobs(data)
 
     def fetchByID(self, id):
         data = self.jobDA.GetByID(id)
-        self.populateSkills(data)
+        self.populateJobs(data)
 
     def fetchAllForJob(self, id):
         data = self.jobSkillDA.GetAllSkillsForJob(id)
-        self.populateSkills(data)
+        self.populateJobs(data)
 
-    def populateSkills(self, data):
+    def populateJobs(self, data):
 
         for row in data:
-            skill = Skill()
-            skill.populateFields(row)
-            self.addToCollection(skill)
+            job = JobPost()
+            job.populateFields(row)
+            self.addToCollection(job)

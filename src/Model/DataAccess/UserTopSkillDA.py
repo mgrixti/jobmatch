@@ -10,7 +10,7 @@ Base = declarative_base()
 
 
 class UserTopSkillDA(Base):
-    __tablename__ = 'user_skill'
+    __tablename__ = 'top_user_skill'
 
     top_skill_id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey(UserDA.user_id))

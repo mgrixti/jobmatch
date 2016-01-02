@@ -10,7 +10,6 @@ class JobPost(AbstractModel):
     description = None
     skills = None
 
-
     def get_postID(self):
         return self.id
 
@@ -24,11 +23,11 @@ class JobPost(AbstractModel):
         # if None get skills from DB
         if self.skills == None:
             self.skills = SkillCollection()
-            self.skills.fetchAllForUser(self.id)
+            self.skills.fetchAllForJob(self.id)
 
         return self.skills
 
     def populateFields(self, data):
         self.id = data.job_id
-        self.first_name = data.job_title.decode("utf-8")
-        self.last_name = data.job_description.decode("utf-8")
+        self.title = data.job_title.decode("utf-8")
+        self.description = data.job_description.decode("utf-8")
