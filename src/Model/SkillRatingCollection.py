@@ -6,7 +6,7 @@ from src.Model.DataAccess.JobSkillDA import JobSkillDA
 from src.Model.DataAccess.UserSkillDA import UserSkillDA
 from src.Model.DataAccess.UserTopSkillDA import UserTopSkillDA
 
-from src.Model.Skill import Skill
+from src.Model.SkillRating import SkillRating
 
 
 class SkillRatingCollection(AbstractCollection):
@@ -32,6 +32,6 @@ class SkillRatingCollection(AbstractCollection):
     def populateSkillRatings(self, data):
 
         for row in data:
-            skillRating = Skill()
+            skillRating = SkillRating()
             skillRating.populateFields(row)
             self.addToCollection(skillRating)

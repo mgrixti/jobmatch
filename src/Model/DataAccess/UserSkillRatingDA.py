@@ -13,8 +13,8 @@ class UserSkillRatingDA(Base):
     __tablename__ = 'skill_rating'
 
     skill_rating_id = Column(Integer, primary_key=True)
-    skill_one_id = Column(Integer)
-    skill_two_id = Column(Integer)
+    skill_id_one = Column(Integer)
+    skill_id_two = Column(Integer)
     rating = Column(DECIMAL(10,10))
     user_id = Column(Integer)
 
@@ -27,7 +27,7 @@ class UserSkillRatingDA(Base):
         return results
 
     def getAllForUser(self, id):
-        results = self.session.query(UserSkillRatingDA).filter(UserSkillRatingDA.user_id == id).one()
+        results = self.session.query(UserSkillRatingDA).filter(UserSkillRatingDA.user_id == id)
         return results
 
     def getByID(self, id):

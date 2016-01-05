@@ -18,8 +18,26 @@ class MatchMaker:
 
 
         for user in users:
-            ratings = user.getSkillRatings()
 
+            self.matchToUser(user, jobs)
+
+
+    def matchToUser(self, user, jobList):
+
+        ratingCollection = user.getSkillRatings()
+
+        ratings = []
+
+        for rating in ratingCollection.collection:
+            ratings.append(rating.get_rating())
+
+        if ratings.__len__() == 10:
+            ahp = AHP()
+
+            matrix = ahp.generateMatrix(ratings)
+            weights = ahp.generateWeights(matrix)
+        else:
+            print("Invalid number of ratings for: ", user.first_name, user.last_name, ", has ", ratings.__len__())
 
 
     # def GenerateJobMatches(self, job_list):

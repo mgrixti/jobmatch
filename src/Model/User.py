@@ -2,7 +2,7 @@ __author__ = 'Matthew Grixti'
 
 from src.Model.AbstractModel import AbstractModel
 from src.Model.SkillCollection import SkillCollection
-
+from src.Model.SkillRatingCollection import SkillRatingCollection
 
 
 class User(AbstractModel):
@@ -33,9 +33,10 @@ class User(AbstractModel):
 
         return self.skills
 
+    # gets the skill ratings for user. If ratings have not been loaded yet they will be.
     def getSkillRatings(self):
         if self.skillRatings == None:
-            self.skillRatings = SkillCollection()
+            self.skillRatings = SkillRatingCollection()
             self.skillRatings.fetchAllForUser(self.id)
 
         return self.skillRatings
@@ -46,7 +47,5 @@ class User(AbstractModel):
         self.last_name = data.last_name.decode("utf-8")
 
     # Adds new skill to end of list
-    # TODO Check for if skill is in the list
     def add_skill(self, skill):
         User.skills.append(skill)
-

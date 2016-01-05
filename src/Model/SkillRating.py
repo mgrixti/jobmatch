@@ -22,6 +22,12 @@ class SkillRating(AbstractModel):
     def get_skill_id_two(self):
         return self.skill_id_two
 
+    def get_rating(self):
+        return self.rating
+
+    def get_user_id(self):
+        return self.user_id
+
     def populateFields(self, data):
 
         self.id = data.skill_rating_id
