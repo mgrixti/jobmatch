@@ -21,9 +21,9 @@ class MatchMaker:
 
             self.matchToUser(user, jobs)
 
-
+    # Run the job list against a single user
     def matchToUser(self, user, jobList):
-
+        topSkills = user.getTopSkills()
         ratingCollection = user.getSkillRatings()
 
         ratings = []
@@ -31,34 +31,25 @@ class MatchMaker:
         for rating in ratingCollection.collection:
             ratings.append(rating.get_rating())
 
+
+        weights = None
+
+        # If there are 10 ratings
         if ratings.__len__() == 10:
             ahp = AHP()
+            weights = ahp.generateWeightsFromRatings(ratings)
 
-            matrix = ahp.generateMatrix(ratings)
-            weights = ahp.generateWeights(matrix)
         else:
             print("Invalid number of ratings for: ", user.first_name, user.last_name, ", has ", ratings.__len__())
 
 
-    # def GenerateJobMatches(self, job_list):
-    #
-    #     # For each skill a user has, see if a job has any of those skills. Each skill match = 1
-    #     for user_skill in user_skills:
-    #
-    #         for job in job_list:
-    #
-    #             job_rank = 0
-    #
-    #             for job_skill in job.getSkills():
-    #
-    #                 if job_skill.get_skill_id() == user_skill.get_skill_id():
-    #                     job_rank+= 1
-    #
-    #
-    # def rankJob(self, user, job):
-    #
-    #     # Compare user top_skills to job skills. If job has skill add that skills weight to users rank
-    #     return None
+    # Returns True or False if job has skill with the same ID
+    def hasJobSkill(self, job, skill_id):
+
+        skills = job.getSkills()
+        hasSkill = skills.contains(skill_id)
+
+        return hasSkill
 
 
 matcher = MatchMaker()

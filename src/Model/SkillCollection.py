@@ -7,7 +7,7 @@ from src.Model.DataAccess.UserSkillDA import UserSkillDA
 from src.Model.DataAccess.UserTopSkillDA import UserTopSkillDA
 
 from src.Model.Skill import Skill
-
+# All fetch methods are for database retrieval
 class SkillCollection(AbstractCollection):
 
     skillDA = SkillDA()

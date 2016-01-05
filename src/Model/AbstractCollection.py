@@ -21,12 +21,12 @@ class AbstractCollection(object):
     # Add item to end of collection
     def addToCollection(self, collectionItem):
         self.collection.append(collectionItem)
-    # remove the item passed in from collectionItem)
 
+    # remove the item passed in from collectionItem)
     def removeFromCollection(self, collectionItem):
         self.collection.remove(collectionItem)
-    # find an item by its ID in a collectionItem)
 
+    # find an item by its ID in a collectionItem)
     def findByID(self, id):
 
         for collectionItem in self.collection:
@@ -34,8 +34,15 @@ class AbstractCollection(object):
                 return collectionItem
 
         return None
-    # is the collection empty?rn None
 
+    def contains(self, id):
+
+        if self.findByID(id).get_id() == id:
+            return True
+
+        return False
+
+    # is the collection empty?rn None
     def isEmpty(self):
 
         if(self.collection.__len__() == 0):

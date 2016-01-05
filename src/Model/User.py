@@ -10,6 +10,7 @@ class User(AbstractModel):
     first_name = None
     last_name = None
     skills = None # Lazy loaded collection
+    topSkills = None
     skillRatings = None # Lazy loaded collection
 
     # Returns first name of user
@@ -40,6 +41,13 @@ class User(AbstractModel):
             self.skillRatings.fetchAllForUser(self.id)
 
         return self.skillRatings
+
+    def getTopSkills(self):
+        if self.topSkills == None:
+            self.topSkills = SkillCollection()
+            self.topSkills.fetchTopForUser(self.id)
+
+        return self.topSkills
 
     def populateFields(self, data):
         self.id = data.user_id

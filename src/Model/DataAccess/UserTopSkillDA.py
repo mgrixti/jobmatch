@@ -21,7 +21,7 @@ class UserTopSkillDA(Base):
         self.session = self.db.connect()
 
     def getAllForUser(self, id):
-        results = self.session.query(UserTopSkillDA).filter(UserTopSkillDA.user_id == id).one()
+        results = self.session.query(UserTopSkillDA).filter(UserTopSkillDA.user_id == id)
         return results
 
     def getByID(self, id):

@@ -3,11 +3,19 @@
 class AHP:
 
 
-    numCriteria = 5
+    def __init__(self, criteria=5):
+        self._numCriteria = criteria
 
-    # Builds matrix of weights
+    @property
+    def numCriteria(self):
+        return self._numCriteria
+
+    @numCriteria.setter
+    def numCriteria(self, data):
+        self._numCriteria = data
+
+    # Builds matrix of ratings
     # data should be in an array with the data in order of row
-    # WORKS
     def generateMatrix(self, data):
 
         # initialize Matrix to all 1s
@@ -28,14 +36,14 @@ class AHP:
                     #Pop next data off stack
                     weight = data.pop(0)
                     matrix[y][x] = weight # add weight to matrix
-                    matrix[x][y] = self.calculateOppositeWeight(weight) # Generate weight for opposite field
+                    matrix[x][y] = self.calculateOppositeRatings(weight) # Generate weight for opposite field
 
         return matrix
 
     # Helper method for matrix generation
     # Generates the opposite value of the weight handed in.
     # WORKS
-    def calculateOppositeWeight(self, weight=1):
+    def calculateOppositeRatings(self, weight=1):
 
         # 1 divided by weight to find the opposite corresponding weight for the matrix
         oppositeWeight = 1/weight
@@ -94,5 +102,13 @@ class AHP:
 
             # adds avg to array of weights
             weights.append(avg)
+
+        return weights
+
+
+    def generateWeightsFromRatings(self,ratings):
+
+        matrix = self.generateMatrix(ratings)
+        weights = self.generateWeights(matrix)
 
         return weights
