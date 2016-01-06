@@ -25,11 +25,3 @@ class UserCollection(AbstractCollection):
             user.populateFields(row)
             self.addToCollection(user)
 
-# userCollection = UserCollection()
-# userCollection.fetchAll()
-# user = userCollection.findByID(1)
-# print(user.get_id())
-#
-# for user1 in userCollection.getCollection():
-#     print(user1)
-#     print(user1.id, user1.first_name, user1.last_name)

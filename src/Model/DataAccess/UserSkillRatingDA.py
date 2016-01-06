@@ -27,7 +27,7 @@ class UserSkillRatingDA(Base):
         return results
 
     def getAllForUser(self, id):
-        results = self.session.query(UserSkillRatingDA).filter(UserSkillRatingDA.user_id == id)
+        results = self.session.query(UserSkillRatingDA).filter(UserSkillRatingDA.user_id == id).order_by(UserSkillRatingDA.skill_id_one, UserSkillRatingDA.skill_id_two)
         return results
 
     def getByID(self, id):

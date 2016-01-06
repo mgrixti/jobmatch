@@ -1,4 +1,3 @@
-from src.Model.JobPost import JobPost
 from src.Model.AHP import AHP
 from src.Model.UserCollection import UserCollection
 from src.Model.JobCollection import JobCollection
@@ -23,24 +22,34 @@ class MatchMaker:
 
     # Run the job list against a single user
     def matchToUser(self, user, jobList):
-        topSkills = user.getTopSkills()
-        ratingCollection = user.getSkillRatings()
+
+        print("Looking for matches for", user.first_name, user.last_name)
+
+        topSkills = user.getTopSkills().collection
+        ratingCollection = user.getSkillRatings().collection
 
         ratings = []
 
-        for rating in ratingCollection.collection:
+        # Extract the raw rating from SkillRating Object
+        for rating in ratingCollection:
             ratings.append(rating.get_rating())
-
-
-        weights = None
 
         # If there are 10 ratings
         if ratings.__len__() == 10:
+            # Generate weights for users top skills
             ahp = AHP()
             weights = ahp.generateWeightsFromRatings(ratings)
 
+            # Pull weights and associate them with their skill in a dict
+            skillWeightings = {}
+            for i in range(weights.__len__()):
+                skillWeightings[topSkills[i].id] = weights[i]
+
+
+
         else:
             print("Invalid number of ratings for: ", user.first_name, user.last_name, ", has ", ratings.__len__())
+
 
 
     # Returns True or False if job has skill with the same ID
@@ -50,7 +59,6 @@ class MatchMaker:
         hasSkill = skills.contains(skill_id)
 
         return hasSkill
-
 
 matcher = MatchMaker()
 matcher.MatchAll()

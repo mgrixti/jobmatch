@@ -105,7 +105,7 @@ class AHP:
 
         return weights
 
-
+    # Returns Weights from ratings inputted
     def generateWeightsFromRatings(self,ratings):
 
         matrix = self.generateMatrix(ratings)

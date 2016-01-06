@@ -14,6 +14,7 @@ class SkillDA(Base):
     skill_id = Column(Integer, primary_key=True)
     skill_name = Column(String)
 
+
     def __init__(self):
         SkillDA.db = DbConnection()
         SkillDA.session = SkillDA.db.connect()

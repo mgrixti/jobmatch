@@ -5,10 +5,16 @@ from abc import ABCMeta, abstractmethod
 class AbstractModel(object):
     __metaclass__ = ABCMeta
 
-    id = None
+    def __init__(self):
+        self._id = None
 
-    def get_id(self):
-        return self.id
+    @property
+    def id(self):
+        return self._id
+
+    @id.setter
+    def id(self, newID):
+        self._id = newID
 
     @abstractmethod
     def populateFields(self, data):

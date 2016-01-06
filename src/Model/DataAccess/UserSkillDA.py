@@ -1,6 +1,6 @@
 __author__ = 'Matthew Grixti'
 
-from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy import Column, Integer, ForeignKey, BOOLEAN
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from src.Model.DataAccess.DbConnection import DbConnection
@@ -15,6 +15,7 @@ class UserSkillDA(Base):
     user_skill_id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey(UserDA.user_id))
     skill_id = Column(Integer, ForeignKey(SkillDA.skill_id))
+    is_top_skill = Column(BOOLEAN)
 
     user = relationship(UserDA)
     skills = relationship(SkillDA)
@@ -39,5 +40,11 @@ class UserSkillDA(Base):
 
         results = UserSkillDA.session.query(UserSkillDA.skill_id, SkillDA.skill_name).join(SkillDA).\
                   filter(UserSkillDA.user_id == user_id).all()
+
+        return results
+
+    def GetTopForUser(self, id):
+
+        results = UserSkillDA.session.query(UserSkillDA).filter(UserSkillDA.user_id == 1,  UserSkillDA.is_top_skill == 1).all()
 
         return results

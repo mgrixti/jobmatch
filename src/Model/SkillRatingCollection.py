@@ -4,7 +4,6 @@ from src.Model.AbstractCollection import AbstractCollection
 from src.Model.DataAccess.UserSkillRatingDA import UserSkillRatingDA
 from src.Model.DataAccess.JobSkillDA import JobSkillDA
 from src.Model.DataAccess.UserSkillDA import UserSkillDA
-from src.Model.DataAccess.UserTopSkillDA import UserTopSkillDA
 
 from src.Model.SkillRating import SkillRating
 
@@ -14,7 +13,6 @@ class SkillRatingCollection(AbstractCollection):
 
     userSkillRatingDA = UserSkillRatingDA()
     userSkillDA = UserSkillDA()
-    userTopSkillDA = UserTopSkillDA()
     jobSkillDA = JobSkillDA()
 
     def fetchAll(self):
