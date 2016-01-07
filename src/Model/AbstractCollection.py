@@ -30,14 +30,14 @@ class AbstractCollection(object):
     def findByID(self, id):
 
         for collectionItem in self.collection:
-            if(collectionItem.get_id() == id):
+            if(collectionItem.id == id):
                 return collectionItem
 
         return None
 
     def contains(self, id):
 
-        if self.findByID(id).get_id() == id:
+        if self.findByID(id) != None:
             return True
 
         return False
@@ -45,7 +45,7 @@ class AbstractCollection(object):
     # is the collection empty?rn None
     def isEmpty(self):
 
-        if(self.collection.__len__() == 0):
+        if self.collection.__len__() == 0:
             return True
 
         return False

@@ -20,7 +20,6 @@ class UserSkillDA(Base):
     user = relationship(UserDA)
     skills = relationship(SkillDA)
 
-
     def __init__(self):
         UserSkillDA.db = DbConnection()
         UserSkillDA.session = UserSkillDA.db.connect()

@@ -14,11 +14,11 @@ class Skill(AbstractModel):
     def get_skill_name(self):
         return self.skill_name
 
-    def populateFields(self, data, isTop=False):
+    def populateFields(self, data, isTop=False, isJob=False):
 
         self.id = data.skill_id
 
         if isTop:
             self.isTop = data.is_top_skill
-        else:
+        elif isJob!=True:
             self.skill_name = data.skill_name.decode("utf-8")

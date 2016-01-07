@@ -31,9 +31,9 @@ class SkillCollection(AbstractCollection):
 
     def fetchAllForJob(self, id):
         data = self.jobSkillDA.GetAllSkillsForJob(id)
-        self.populateSkills(data)
+        self.populateSkills(data, False, True)
 
-    def populateSkills(self, data, isTop=False):
+    def populateSkills(self, data, isTop=False, isJob=False):
 
         # if data != None:
 
@@ -42,6 +42,8 @@ class SkillCollection(AbstractCollection):
 
                 if isTop:
                     skill.populateFields(row, True)
+                elif isJob==True:
+                    skill.populateFields(row, False, True)
                 else:
                     skill.populateFields(row)
 
