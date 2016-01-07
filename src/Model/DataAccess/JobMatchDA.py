@@ -38,7 +38,6 @@ class JobMatchDA(Base):
         new_match = JobMatchDA(user_id, job_id)
         JobMatchDA.session.add(new_match)
         results = JobMatchDA.session.commit()
-        print(results)
 
 da = JobMatchDA()
 da.insertMatch(5,7)

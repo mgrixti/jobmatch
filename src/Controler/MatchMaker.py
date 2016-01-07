@@ -1,6 +1,8 @@
 from src.Model.AHP import AHP
 from src.Model.UserCollection import UserCollection
 from src.Model.JobCollection import JobCollection
+from src.Model.JobMatchCollection import JobMatchCollection
+
 
 
 class MatchMaker:
@@ -45,6 +47,7 @@ class MatchMaker:
             for i in range(weights.__len__()):
                 skillWeightings[topSkills[i].id] = weights[i]
 
+            matches = JobMatchCollection()
             for job in jobList:
 
                 score = 0
@@ -54,9 +57,11 @@ class MatchMaker:
 
                 print(job.id, "has score of: ", score)
                 if score > 0:
-                    print('YES')
+                    matches.addMatch(user.id, job)
+
+            print(user.first_name, user.last_name, "has been matched with", matches.collection.__len__(), "jobs")
         else:
-            print("Invalid number of ratings for: ", user.first_name, user.last_name, ", has ", ratings.__len__())
+            print("Invalid number of ratings. ", user.first_name, user.last_name, " has ", ratings.__len__(), "ratings and is unable to fins a match")
 
 
 
@@ -64,7 +69,6 @@ class MatchMaker:
     # Returns True or False if job has skill with the same ID
     def hasJobSkill(self, job, skill_id):
         skills = job.getSkills()
-        print("Job Skills:", skills)
         hasSkill = skills.contains(skill_id)
 
         return hasSkill

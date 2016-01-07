@@ -3,6 +3,7 @@ __author__ = 'Matthew Grixti'
 from src.Model.AbstractModel import AbstractModel
 from src.Model.SkillCollection import SkillCollection
 from src.Model.SkillRatingCollection import SkillRatingCollection
+from src.Model.JobMatchCollection import JobMatchCollection
 
 
 class User(AbstractModel):
@@ -12,6 +13,7 @@ class User(AbstractModel):
     skills = None # Lazy loaded collection
     topSkills = None
     skillRatings = None # Lazy loaded collection
+    jobMatches = None
 
     # Returns first name of user
     def get_first_name(self):
@@ -48,6 +50,11 @@ class User(AbstractModel):
             self.topSkills.fetchTopForUser(self.id)
 
         return self.topSkills
+
+    def getJobMatches(self):
+        if self.jobMatches == None:
+            self.jobMatches = JobMatchCollection()
+            self.jobMatches.fetchAllForUser(self.id)
 
     def populateFields(self, data):
         self.id = data.user_id
