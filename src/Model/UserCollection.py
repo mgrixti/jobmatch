@@ -24,4 +24,3 @@ class UserCollection(AbstractCollection):
             user = User()
             user.populateFields(row)
             self.addToCollection(user)
-

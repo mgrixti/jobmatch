@@ -3,8 +3,8 @@
 class AHP:
 
 
-    def __init__(self, criteria=5):
-        self._numCriteria = criteria
+    def __init__(self, numCriteria=5):
+        self._numCriteria = numCriteria
 
     @property
     def numCriteria(self):
