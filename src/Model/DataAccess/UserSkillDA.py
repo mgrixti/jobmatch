@@ -44,6 +44,6 @@ class UserSkillDA(Base):
 
     def GetTopForUser(self, id):
 
-        results = UserSkillDA.session.query(UserSkillDA).filter(UserSkillDA.user_id == 1,  UserSkillDA.is_top_skill == 1).all()
+        results = UserSkillDA.session.query(UserSkillDA).filter(UserSkillDA.user_id == id,  UserSkillDA.is_top_skill == 1).all()
 
         return results

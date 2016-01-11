@@ -36,9 +36,13 @@ class MatchMaker:
 
         userCollection = UserCollection()
         userCollection.fetchByID(userID)
-        user = userCollection.findByID(userID)
+        userCol = userCollection.collection
 
-        self.matchToUser(user, jobs)
+        if userCol.__len__() > 0:
+            user = userCol.pop(0)
+            self.matchToUser(user, jobs)
+        else:
+            print("No user with the ID", userID)
 
     def matchSingleJobToUsers(self,jobID):
 
@@ -71,7 +75,7 @@ class MatchMaker:
         # If there are 10 ratings
         if ratings.__len__() == self.requiredRatings(topSkills.__len__()):
             # Generate weights for users top skills
-            ahp = AHP()
+            ahp = AHP(topSkills.__len__())
             weights = ahp.generateWeightsFromRatings(ratings)
 
             # Pull weights and associate them with their skill in a dict
@@ -81,7 +85,7 @@ class MatchMaker:
 
 
             matches = JobMatchCollection() # Matches found
-            for job in jobList:
+            for job in jobList: # Run each job
 
                 score = 0
                 for skill in skillWeightings.keys():
@@ -89,13 +93,21 @@ class MatchMaker:
                         score+= skillWeightings[skill]
 
                 print("\t\tJob",job.id, "has score of: ", score)
-                if score > 0 and self.matchExist(user.id, job.id)== False:
-                    matches.addMatch(user.id, job)
+
+                # Get match from databases
+                matchExist = self.matchExist(user.id, job.id)
+
+                if score > 0 and matchExist == None: # Score is > 0 and match is not already in DB
                     print("\t\t\tMatch does not exist. Adding...")
+                    matches.addMatch(user.id, job.id, score)
+
+                elif matchExist != None and round(score,10) != matchExist.score:
+                    print("\t\t\tMatch exists but score don't match. Updating Score....")
+                    matchExist.updateScore(user.id, job.id, score)
 
             print("\t****",user.first_name, user.last_name, "has been matched with", matches.collection.__len__(), "new jobs.")
         else:
-            print("\tNo skills or an invalid number of ratings. ", user.first_name, user.last_name, " has ", ratings.__len__(), "ratings and is unable to finds matches")
+            print("\tNo skills or an invalid number of ratings. ", user.first_name, user.last_name, " has ", ratings.__len__(), 'but needs', self.requiredRatings(topSkills.__len__()), "ratings and is unable to finds matches")
 
 
     # Returns True or False if job has skill with the same ID
@@ -114,10 +126,7 @@ class MatchMaker:
         da = JobMatchDA()
         match = da.GetMatch(user_id, job_id)
 
-        if match.__len__() >= 1:
-            return True
+        if match.__len__() > 0:
+            return  match[0]
         else:
-            return False
-
-matcher = MatchMaker()
-matcher.matchSingleJobToUsers(2)
+            return None

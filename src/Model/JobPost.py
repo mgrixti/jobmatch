@@ -10,9 +10,6 @@ class JobPost(AbstractModel):
     description = None
     skills = None
 
-    def get_postID(self):
-        return self.id
-
     def get_title(self):
         return self.title
 
@@ -20,7 +17,7 @@ class JobPost(AbstractModel):
         return self.description
 
     def getSkills(self):
-        # if None get skills from DB
+        # Lazy load. if None get skills from DB
         if self.skills == None:
             self.skills = SkillCollection()
             self.skills.fetchAllForJob(self.id)
