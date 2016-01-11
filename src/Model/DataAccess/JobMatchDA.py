@@ -38,3 +38,7 @@ class JobMatchDA(Base):
         new_match = JobMatchDA(user_id, job_id)
         JobMatchDA.session.add(new_match)
         results = JobMatchDA.session.commit()
+
+    def GetMatch(self, user_id, job_id):
+        results = JobMatchDA.session.query(JobMatchDA).filter(JobMatchDA.job_id == job_id, JobMatchDA.user_id == user_id)
+        return results.all()
