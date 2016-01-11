@@ -27,7 +27,7 @@ class JobDA(Base):
     def GetAll(self):
 
         # SELECT * FROM job_post
-        results = self.session.query(JobDA)
+        results = self.session.query(JobDA).all()
 
         return results
 
@@ -35,6 +35,6 @@ class JobDA(Base):
     def GetByID(self, id):
 
         # SELECT * FROM Job_postWHERE id =
-        results = self.session.query(JobDA).filter(JobDA.job_id == id).one()
+        results = self.session.query(JobDA).filter(JobDA.job_id == id).all()
 
         return results

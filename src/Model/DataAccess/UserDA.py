@@ -28,7 +28,7 @@ class UserDA(Base):
     def GetAll(self):
 
         # SELECT * FROM user
-        results = self.session.query(UserDA)
+        results = self.session.query(UserDA).all()
 
         return results
 
@@ -36,7 +36,7 @@ class UserDA(Base):
     def GetByID(self, id):
 
         # SELECT * FROM user WHERE id =
-        results = self.session.query(UserDA).filter(UserDA.user_id == id).one()
+        results = self.session.query(UserDA).filter(UserDA.user_id == id).all()
 
         return results
 

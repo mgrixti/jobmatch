@@ -10,7 +10,7 @@ import math
 class MatchMaker:
 
     # Runs all users against all jobs
-    def MatchAll(self):
+    def matchAll(self):
 
         # Gets all jobs
         jobCollection = JobCollection()
@@ -27,18 +27,32 @@ class MatchMaker:
 
             self.matchToUser(user, jobs)
 
-    def matchUserToJobs(self, userID):
+    def matchSingleUserToJobs(self, userID):
+
+        jobCollection = JobCollection()
+        jobCollection.fetchAll()
+        jobs = jobCollection.collection
+
 
         userCollection = UserCollection()
         userCollection.fetchByID(userID)
-        users = userCollection.collection
+        user = userCollection.findByID(userID)
 
-    def matchJobToUsers(self, jobID):
+        self.matchToUser(user, jobs)
+
+    def matchSingleJobToUsers(self,jobID):
 
         jobCollection = JobCollection()
         jobCollection.fetchByID(jobID)
         jobs = jobCollection.collection
 
+        userCollection = UserCollection()
+        userCollection.fetchAll()
+        users = userCollection.collection
+
+        for user in users:
+
+            self.matchToUser(user, jobs)
 
     # Run the job list against a single user
     def matchToUser(self, user, jobList):
@@ -106,4 +120,4 @@ class MatchMaker:
             return False
 
 matcher = MatchMaker()
-matcher.MatchAll()
+matcher.matchSingleJobToUsers(2)
